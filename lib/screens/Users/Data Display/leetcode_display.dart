@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:leetcodestats/Modal/Profiles/leetcode_stats_modal.dart';
 import 'package:leetcodestats/Utils/apiHelper.dart';
+import 'package:leetcodestats/Utils/constants.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:url_launcher/url_launcher.dart';
 // ignore: must_be_immutable
 class LeetcodeScreen extends StatefulWidget {
 	String username;
@@ -15,10 +17,16 @@ class _LeetcodeScreenState extends State<LeetcodeScreen> {
 	@override
 	Widget build(BuildContext context) {
 		if(widget.username.isEmpty){
-			return Center(child : Container(child : Text("Username not yet added")));
+			return Scaffold(
+				backgroundColor: Constants.backgroundColor,
+				body: Center(child : Container(child : Text("Username not yet added"))),
+				);
 		}
 		return Scaffold(
-			appBar: AppBar(title: Text("Leetcode"),),
+			appBar: AppBar(
+				backgroundColor: Constants.foregroundColor,
+				title: Text("Leetcode"),),
+			backgroundColor: Constants.backgroundColor,
 			body: FutureBuilder<LeetcodeStats>(
 				future: ApiHelper.getLeetcodeData(widget.username),
 				builder: (context, snapshot){
@@ -29,117 +37,147 @@ class _LeetcodeScreenState extends State<LeetcodeScreen> {
 							}else{
 								LeetcodeStats data=snapshot.data!;
 								return SingleChildScrollView(
-									child: Column(
-										children: [
-										Padding(
-											padding: EdgeInsets.all(16),
-											child: Card(
-												borderOnForeground: true,
-												child: Column(
-													children: [
-													Padding(
-														padding: EdgeInsets.all(16),
-														child: Text("Solved Problems"),
-														),
-
-													Center(child : Padding(
-														padding: EdgeInsets.all(16),
-														child : Center(
-															child : PieChart(
-																dataMap: {
-																	"Easy": double.parse(data.easyQuestionsSolved.toString()),
-																	"Medium": double.parse(data.mediumQuestionsSolved.toString()),
-																	"Hard": double.parse(data.hardQuestionsSolved.toString()),
-																	},
-																	animationDuration: Duration(milliseconds: 1100),
-																	chartRadius: 200,
-																	centerText: "Beats:" + data.acceptanceRate.toString(),
-																	gradientList: [[
-																	Color.fromRGBO(54,211,100,1),
-																	Color.fromRGBO(129, 250, 112, 1),
-																	],
-																	[
-																	Color.fromRGBO(223, 250, 92, 1),
-																	Color.fromRGBO(255,250,80,1),
-																	],
-																	[
-																	Color.fromRGBO(223,27,27,1),
-																	Color.fromRGBO(254, 154, 92, 1),
-																	]],
-																	colorList: [
-																	Colors.green,
-																	Colors.yellow,
-																	Colors.red,
-																	],
-																	chartType: ChartType.ring,
-																	legendOptions: LegendOptions(showLegends: false),
-																	chartValuesOptions:ChartValuesOptions(
-																		showChartValuesInPercentage: true,
-																		chartValueBackgroundColor: Colors.purple
-																		),
-																	)
-															)
-
-														),)
-
-
-
-													],
-													)
+									child: Container(
+										padding: EdgeInsets.all(16),
+										child: Card(
+											elevation: 10,
+											shape: RoundedRectangleBorder(
+												borderRadius: BorderRadius.circular(20),
 												),
-											),
-										Row(
-											children: [
-											card_widget(Colors.red, "Hard", data.hardQuestionsSolved.toString() ,  data.totalHardQuestions.toString(),  data.hardAcceptanceRate.toString()),
-											card_widget(Colors.yellow, "Medium", data.mediumQuestionsSolved.toString() ,  data.totalMediumQuestions.toString(),  data.mediumAcceptanceRate.toString()),
-											],
-											),
-										Row(
-											children: [
-											card_widget(Colors.green, "Easy", data.easyQuestionsSolved.toString() ,  data.totalEasyQuestions.toString(),  data.easyAcceptanceRate.toString()),
-											card_widget(Colors.purple, "Total", data.totalProblemsSolved.toString() , "", data.acceptanceRate.toString())
-											],
-											),
-										Row(
-											children : [
-											Expanded(
-												child : Padding(
-													padding: EdgeInsets.all(5),
-													child: Card(
-														child: Padding(
-															padding: EdgeInsets.all(10),
-															child:Container(
-																height: 80,
-																width: 130,
-																child: Center(
-																	child: Text(
-																		"Rank : " + data.ranking.toString(),
-																		style: TextStyle(
-																			fontWeight: FontWeight.bold,
+											child: Container(
+												decoration: BoxDecoration(
+													gradient: LinearGradient(
+														colors: [Colors.deepPurple, Colors.indigo],
+														begin: Alignment.topCenter,
+														end: Alignment.bottomCenter,
+														),
+													borderRadius: BorderRadius.circular(20),
+													),
+												child: Padding(
+													padding: const EdgeInsets.all(20),
+													child: Column(
+														children: [
+														Padding(
+															padding: EdgeInsets.all(16),
+															child: Column(
+																children: [
+																Padding(
+																	padding: EdgeInsets.all(16),
+																	child: Text("Solved Problems"),
+																	),
+
+																Center(child : Padding(
+																	padding: EdgeInsets.all(16),
+																	child : Center(
+																		child : PieChart(
+																			dataMap: {
+																				"Easy": double.parse(data.easyQuestionsSolved.toString()),
+																				"Medium": double.parse(data.mediumQuestionsSolved.toString()),
+																				"Hard": double.parse(data.hardQuestionsSolved.toString()),
+																				},
+																				animationDuration: Duration(milliseconds: 1100),
+																				chartRadius: 200,
+																				centerText: "Beats:" + data.acceptanceRate.toString(),
+																				gradientList: [[
+																				Color.fromRGBO(54,211,30,1),
+																				Color.fromRGBO(30, 250, 30, 1),
+																				],
+																				[
+																				Color.fromRGBO(223, 250, 42, 1),
+																				Color.fromRGBO(255,250,40,1),
+																				],
+																				[
+																				Color.fromRGBO(223,27,27,1),
+																				Color.fromRGBO(254, 0, 0, 5),
+																				]],
+																				colorList: [
+																				Colors.green,
+																				Colors.yellow,
+																				Colors.red,
+																				],
+																				chartType: ChartType.ring,
+																				legendOptions: LegendOptions(showLegends: false),
+																				chartValuesOptions:ChartValuesOptions(
+																					showChartValuesInPercentage: true,
+																					),
+																				)
+																		)
+
+																	),)
+
+
+
+																],
+																),
+
+															),
+														Row(
+															children: [
+															card_widget(Colors.red, "Hard", data.hardQuestionsSolved.toString() ,  data.totalHardQuestions.toString(),  data.hardAcceptanceRate.toString()),
+															card_widget(Colors.yellow, "Medium", data.mediumQuestionsSolved.toString() ,  data.totalMediumQuestions.toString(),  data.mediumAcceptanceRate.toString()),
+															],
+															),
+														Row(
+															children: [
+															card_widget(Colors.green, "Easy", data.easyQuestionsSolved.toString() ,  data.totalEasyQuestions.toString(),  data.easyAcceptanceRate.toString()),
+															card_widget(Colors.purple, "Total", data.totalProblemsSolved.toString() , "", data.acceptanceRate.toString())
+															],
+															),
+														Row(
+															children : [
+															Expanded(
+																child : Padding(
+																	padding: EdgeInsets.all(5),
+																	child: Card(
+																		elevation: 5,
+																		shape: RoundedRectangleBorder(
+																			borderRadius: BorderRadius.circular(15),
 																			),
-																		),
+																		color: Colors.deepPurpleAccent,
+																		child: Padding(
+																			padding: EdgeInsets.all(10),
+																			child:Container(
+																				height: 80,
+																				width: 130,
+																				child: Center(
+																					child: Text(
+																						"Rank : " + data.ranking.toString(),
+																						style: TextStyle(
+																							fontWeight: FontWeight.bold,
+																							),
+																						),
+																					)
+																				)
+																			)
+																		)
 																	)
 																)
+															]
+															),
+														Padding(
+															padding : EdgeInsets.all(10),
+															child : Center(
+																child : GestureDetector(
+																	onTap: (){
+																		final Uri _url = Uri.parse("https://leetcode.com/"+widget.username);
+																		launchUrl(_url);
+																		},
+																		child: Text("Tap for Profile >"),
+																		)
+																)
 															)
-														)
-													)
-												)
-											]
-											),
-										Padding(
-											padding : EdgeInsets.all(10),
-											child : Center(
-												child : Text("Tap for Profile >")
-												)
-											)
-										
-										],
-										),
-									);
-							}
-						}
-						),
-			);
+
+														],
+														),
+),
+),
+),
+),
+);
+}
+}
+),
+);
 }
 
 
@@ -150,6 +188,11 @@ Widget card_widget(Color color,String display,String solved,String total,String 
 		child : Padding(
 			padding: EdgeInsets.all(5),
 			child: Card(
+				elevation: 5,
+				shape: RoundedRectangleBorder(
+					borderRadius: BorderRadius.circular(15),
+					),
+				color: Colors.deepPurpleAccent,
 				child: Padding(
 					padding: EdgeInsets.all(10),
 					child:Container(

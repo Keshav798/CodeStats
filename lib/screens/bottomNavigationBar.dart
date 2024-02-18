@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:leetcodestats/Utils/constants.dart';
 import 'package:leetcodestats/screens/Contest/contest_list.dart';
 import 'package:leetcodestats/screens/Users/user_list.dart';
 
@@ -21,6 +22,8 @@ class _BottomBarState extends State<BottomBar> {
 			children: screens,
 		),
 		bottomNavigationBar: NavigationBar(
+			backgroundColor: Constants.foregroundColor,
+			indicatorColor: Constants.backgroundColor,
 			destinations: [
 				NavigationDestination(icon: Icon(Icons.person), label: "Freinds"),
 				NavigationDestination(icon: Icon(Icons.list), label:"Contests"),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leetcodestats/Utils/constants.dart';
 import 'package:leetcodestats/Utils/sqlHelper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 // ignore: must_be_immutable
@@ -45,9 +46,12 @@ class _UpdateUserState extends State<UpdateUser> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBar(title: Text("Edit"),),
+			appBar: AppBar(
+				backgroundColor: Constants.foregroundColor,
+				title: Text("Edit"),),
+			backgroundColor: Constants.backgroundColor,
 			body: FutureBuilder<List<Map<String,dynamic>>>(
-				future: getData(), 
+				future: getData(),
 				builder: (context, snapshot) {
 					if(!snapshot.hasData){
 						return Center(child : Container(child : CircularProgressIndicator()));
@@ -71,7 +75,7 @@ class _UpdateUserState extends State<UpdateUser> {
 										onPressed: ()=>updateData(),
 										child: Text("Update"),
 										style : ButtonStyle(
-											backgroundColor : MaterialStateProperty.all(Colors.purple)
+											backgroundColor : MaterialStateProperty.all(Constants.foregroundColor)
 											)
 										)
 									],
@@ -85,10 +89,10 @@ class _UpdateUserState extends State<UpdateUser> {
 	Widget fields(String s1,String s2,TextEditingController cont){
 		return Column(
 			children: [
-			Align(
-				alignment: Alignment.centerLeft,
-				child : 	Text(s1)
-				),
+			// Align(
+			// 	alignment: Alignment.centerLeft,
+			// 	child : 	Text(s1)
+			// 	),
 
 			Align(
 				alignment: Alignment.centerLeft,
@@ -96,7 +100,10 @@ class _UpdateUserState extends State<UpdateUser> {
 					width: 300,
 					child: TextField(
 						controller: cont,
-						decoration: InputDecoration(hintText: s2),
+						decoration: InputDecoration(
+							border: OutlineInputBorder(),
+							labelText: s2,
+							)
 						),
 					)
 				),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leetcodestats/Utils/constants.dart';
 import 'package:leetcodestats/Utils/sqlHelper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -29,6 +30,10 @@ class _AddUserState extends State<AddUser> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
+			appBar: AppBar(
+				backgroundColor: Constants.foregroundColor,
+				title: Text("Add Friend"),),
+			backgroundColor: Constants.backgroundColor,
 			body: Padding(
 				padding : EdgeInsets.all(16),
 				child : Column(
@@ -43,7 +48,7 @@ class _AddUserState extends State<AddUser> {
 						onPressed: ()=>addData(),
 						child: Text("Add"),
 						style : ButtonStyle(
-							backgroundColor : MaterialStateProperty.all(Colors.purple)
+							backgroundColor : MaterialStateProperty.all(Constants.foregroundColor)
 							)
 						)
 					],
@@ -55,10 +60,10 @@ class _AddUserState extends State<AddUser> {
 	Widget fields(String s1,String s2,TextEditingController cont){
 		return Column(
 			children: [
-			Align(
-				alignment: Alignment.centerLeft,
-				child : 	Text(s1)
-				),
+			// Align(
+			// 	alignment: Alignment.centerLeft,
+			// 	child : 	Text(s1)
+			// 	),
 
 			Align(
 				alignment: Alignment.centerLeft,
@@ -66,7 +71,10 @@ class _AddUserState extends State<AddUser> {
 					width: 300,
 					child: TextField(
 						controller: cont,
-						decoration: InputDecoration(hintText: s2),
+						decoration: InputDecoration(
+							border: OutlineInputBorder(),
+							labelText: s2,
+							),
 						),
 					)
 				),
