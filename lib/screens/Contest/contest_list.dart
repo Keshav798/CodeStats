@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leetcodestats/Utils/Components/platformCard.dart';
 import 'package:leetcodestats/Utils/constants.dart';
 import 'package:leetcodestats/screens/Contest/codechef_contest_display.dart';
 import 'package:leetcodestats/screens/Contest/codeforces_contest_display.dart';
@@ -12,59 +13,36 @@ class ContestList extends StatefulWidget {
 }
 
 class _ContestListState extends State<ContestList> {
+
+	List<PlatformCard> platforms=[
+					PlatformCard(
+		            "Leetcode",
+		            LeetcodeContestScreen(),
+		            "images/leetcode.png"),
+
+					PlatformCard(
+		            "Codeforces",
+		            CodeforcesContestDisplay(),
+		            "images/leetcode.png"),
+					
+					PlatformCard(
+		            "Codechef",
+		            CodechefContestScreen(),
+		            "images/leetcode.png")
+		            ];
 	@override
 	Widget build(BuildContext context) {
+
 		return Scaffold(
 			appBar: AppBar(
 				backgroundColor: Constants.foregroundColor,
 				title: Text("Contests"),),
 			backgroundColor: Constants.backgroundColor,
-			body: Column(
-				children: [
-				Card(
-					elevation: 5.0, // Set the elevation as needed
-					shape: RoundedRectangleBorder(
-						borderRadius: BorderRadius.circular(12.0), // Set the border radius
-						),
-					color: Constants.foregroundColor,
-					child: ListTile(
-						onTap: (){
-							Navigator.push(context, MaterialPageRoute(builder: (context) => LeetcodeContestScreen()));
-							},
-							title: Text("LeetCode"),
-							),
-					),
-				SizedBox(height: 10,),
-				Card(
-					elevation: 5.0, // Set the elevation as needed
-					shape: RoundedRectangleBorder(
-						borderRadius: BorderRadius.circular(12.0), // Set the border radius
-						),
-					color: Constants.foregroundColor,
-					child: ListTile(
-						onTap: (){
-							Navigator.push(context, MaterialPageRoute(builder: (context) => CodeforcesContestDisplay()));
-							},
-							title: Text("CodeForces"),
-							),
-					),				
-				SizedBox(height: 10,),
-				Card(
-					elevation: 5.0, // Set the elevation as needed
-					shape: RoundedRectangleBorder(
-						borderRadius: BorderRadius.circular(12.0), // Set the border radius
-						),
-					color: Constants.foregroundColor,
-					child: ListTile(
-						onTap: (){
-							Navigator.push(context, MaterialPageRoute(builder: (context) => CodechefContestScreen() ));
-							},
-							title: Text("CodeChef"),
-							),
-					),			
-				SizedBox(height: 10,),
-				],
-				),
+			body: GridView.count(
+		          crossAxisCount: 2,
+		          childAspectRatio : (1/.7),
+		          children: platforms
+		        ),
 			);
 	}
 }
