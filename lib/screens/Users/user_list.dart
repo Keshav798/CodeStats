@@ -23,7 +23,10 @@ class _UserListState extends State<UserList> {
 		return Scaffold(
 			appBar: AppBar(
 				backgroundColor: Constants.foregroundColor,
-				title: Text("Friends"),),
+				title: Text(
+					"Friends",
+					style: TextStyle(color: Constants.foregroundColorText),
+					),),
 			backgroundColor: Constants.backgroundColor,
 			body: Container(
 				child: Container(
@@ -46,7 +49,7 @@ class _UserListState extends State<UserList> {
 													),
 												color: Constants.foregroundColor,
 												child: ListTile(
-													title : Text(user["user_name"]),
+													title : Text(user["user_name"],style: TextStyle(color: Constants.foregroundColorText)),
 													onTap: (){
 														Navigator.push(context, MaterialPageRoute(builder: (context) => UserData(user)));
 														},
@@ -82,7 +85,7 @@ class _UserListState extends State<UserList> {
 
 																		});
 																	},
-																	child: Icon(Icons.delete),
+																	child: Icon(Icons.delete,color: Constants.foregroundColorText,),
 																	),
 															SizedBox(width: 10,),
 															GestureDetector(
@@ -95,7 +98,7 @@ class _UserListState extends State<UserList> {
 																		}
 																		);
 																		},
-																		child: Icon(Icons.edit),
+																		child: Icon(Icons.edit,color: Constants.foregroundColorText,),
 																		)
 															],
 															)
@@ -121,7 +124,7 @@ class _UserListState extends State<UserList> {
 						shape: CircleBorder(),
 						child: FittedBox(child : Column(
 							children: [
-							Icon(Icons.add)
+							Icon(Icons.add,color: Constants.foregroundColorText,)
 							],
 							)),
 						),

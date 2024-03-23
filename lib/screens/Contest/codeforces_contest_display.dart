@@ -18,7 +18,7 @@ class _CodeforcesContestDisplayState extends State<CodeforcesContestDisplay> {
     return Scaffold(
     		appBar: AppBar(
     			backgroundColor: Constants.foregroundColor,
-    			title: Text("Codeforces"),),
+    			title: Text("Codeforces",style: TextStyle(color: Constants.foregroundColorText)),),
     		backgroundColor: Constants.backgroundColor,
     		body: FutureBuilder<CodeforcesContest>(
     			future: ApiHelper.getCodeforcesContests(),
@@ -47,7 +47,7 @@ class _CodeforcesContestDisplayState extends State<CodeforcesContestDisplay> {
 												),
 											color: Constants.foregroundColor, 
 											child: ListTile(
-												title: Text(data.title.toString()),
+												title: Text(data.title.toString(),style: TextStyle(color: Constants.foregroundColorText)),
 												leading: GestureDetector(
 													onTap: () async{
 														if(dateTimeUtc.isBefore(currDate)){
@@ -92,16 +92,19 @@ class _CodeforcesContestDisplayState extends State<CodeforcesContestDisplay> {
 														Fluttertoast.showToast(msg: "Notifocation set");
 														},
 														child: Icon(
-															Icons.notification_add
+															Icons.notification_add,
+															color: Constants.foregroundColorText,
 															),
 														),
-												subtitle: Text("Start : "+dateTimeIndian.hour.toString()+":0"+dateTimeIndian.minute.toString()+" "+dateTimeIndian.day.toString()+"/"+dateTimeIndian.month.toString()+"/"+dateTimeIndian.year.toString()),
+												subtitle: Text(
+													"Start : "+dateTimeIndian.hour.toString()+":0"+dateTimeIndian.minute.toString()+" "+dateTimeIndian.day.toString()+"/"+dateTimeIndian.month.toString()+"/"+dateTimeIndian.year.toString(),
+													style: TextStyle(color: Constants.foregroundColorText)),
 												trailing: GestureDetector(
 													onTap: (){
 														final Uri _url = Uri.parse(data.url??"https://codeforces.com/contests");
 														launchUrl(_url);
 														},
-													child: Icon(Icons.link),
+													child: Icon(Icons.link,color: Constants.foregroundColorText,),
 													),
 												),
 											);

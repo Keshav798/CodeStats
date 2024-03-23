@@ -6,7 +6,8 @@ class PlatformCard extends StatelessWidget {
 	//BuildContext context;
 	String title;
 	Widget goTo;
-  	PlatformCard(this.title,this.goTo);
+  String imagePath;
+  	PlatformCard(this.title,this.goTo,this.imagePath);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class PlatformCard extends StatelessWidget {
                     child : Align(
                       alignment : Alignment.topLeft,
                       child : Text(title,
-                        style : TextStyle(fontSize : 20)
+                        style : TextStyle(fontSize : 20,color : Constants.foregroundColorText)
                       ),
                       
                     ),
@@ -37,8 +38,8 @@ class PlatformCard extends StatelessWidget {
                 Align(
                   alignment : Alignment.bottomRight,
                   child : Image.asset(
-                      'images/leetcode.png',
-                      height : MediaQuery.of(context).size.height*0.15,
+                      imagePath,
+                      height : MediaQuery.of(context).size.height*0.13,
                       width : MediaQuery.of(context).size.width*0.25
                   )
                 )

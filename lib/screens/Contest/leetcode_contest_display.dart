@@ -19,7 +19,7 @@ class _LeetcodeContestScreenState extends State<LeetcodeContestScreen> {
 		return Scaffold(
 			appBar: AppBar(
 				backgroundColor: Constants.foregroundColor,
-				title: Text("Leetcode"),),
+				title: Text("Leetcode",style: TextStyle(color: Constants.foregroundColorText)),),
 			backgroundColor: Constants.backgroundColor,
 			body: FutureBuilder<LeetcodeContest>(
 				future: ApiHelper.getLeetcodeContests(),
@@ -48,7 +48,7 @@ class _LeetcodeContestScreenState extends State<LeetcodeContestScreen> {
 												),
 											color: Constants.foregroundColor, 
 											child: ListTile(
-												title: Text(data.title.toString()),
+												title: Text(data.title.toString(),style: TextStyle(color: Constants.foregroundColorText)),
 												leading: GestureDetector(
 													onTap: () async{
 														if(dateTimeUtc.isBefore(currDate)){
@@ -93,16 +93,17 @@ class _LeetcodeContestScreenState extends State<LeetcodeContestScreen> {
 														Fluttertoast.showToast(msg: "Notifocation set");
 														},
 														child: Icon(
-															Icons.notification_add
+															Icons.notification_add,
+															color: Constants.foregroundColorText,
 															),
 														),
-												subtitle: Text("Start : "+dateTimeIndian.hour.toString()+":0"+dateTimeIndian.minute.toString()+" "+dateTimeIndian.day.toString()+"/"+dateTimeIndian.month.toString()+"/"+dateTimeIndian.year.toString()),
+												subtitle: Text("Start : "+dateTimeIndian.hour.toString()+":0"+dateTimeIndian.minute.toString()+" "+dateTimeIndian.day.toString()+"/"+dateTimeIndian.month.toString()+"/"+dateTimeIndian.year.toString(),style: TextStyle(color: Constants.foregroundColorText)),
 												trailing: GestureDetector(
 													onTap: (){
 														final Uri _url = Uri.parse(data.url??"https://leetcode.com/contest/");
 														launchUrl(_url);
 														},
-														child: Icon(Icons.link),
+														child: Icon(Icons.link,color: Constants.foregroundColor,),
 														),
 												),
 											);

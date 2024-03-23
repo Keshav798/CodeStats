@@ -48,7 +48,7 @@ class _UpdateUserState extends State<UpdateUser> {
 		return Scaffold(
 			appBar: AppBar(
 				backgroundColor: Constants.foregroundColor,
-				title: Text("Edit"),),
+				title: Text("Edit",style: TextStyle(color: Constants.foregroundColorText)),),
 			backgroundColor: Constants.backgroundColor,
 			body: FutureBuilder<List<Map<String,dynamic>>>(
 				future: getData(),
@@ -73,7 +73,7 @@ class _UpdateUserState extends State<UpdateUser> {
 									fields("Codechef","Codechef username",codechef),
 									ElevatedButton(
 										onPressed: ()=>updateData(),
-										child: Text("Update"),
+										child: Text("Update",style: TextStyle(color: Constants.foregroundColorText)),
 										style : ButtonStyle(
 											backgroundColor : MaterialStateProperty.all(Constants.foregroundColor)
 											)
@@ -103,7 +103,13 @@ class _UpdateUserState extends State<UpdateUser> {
 						decoration: InputDecoration(
 							border: OutlineInputBorder(),
 							labelText: s2,
-							)
+							labelStyle : TextStyle(
+							    color : Constants.backgroundColorText
+							  )
+							),
+						style : TextStyle(
+							    color : Constants.backgroundColorText
+							  )
 						),
 					)
 				),

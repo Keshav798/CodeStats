@@ -23,12 +23,12 @@ class _ContestListState extends State<ContestList> {
 					PlatformCard(
 		            "Codeforces",
 		            CodeforcesContestDisplay(),
-		            "images/leetcode.png"),
+		            "images/codeforces.png"),
 					
 					PlatformCard(
 		            "Codechef",
 		            CodechefContestScreen(),
-		            "images/leetcode.png")
+		            "images/codechef.png")
 		            ];
 	@override
 	Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _ContestListState extends State<ContestList> {
 		return Scaffold(
 			appBar: AppBar(
 				backgroundColor: Constants.foregroundColor,
-				title: Text("Contests"),),
+				title: Text("Contests",style: TextStyle(color: Constants.foregroundColorText)),),
 			backgroundColor: Constants.backgroundColor,
 			body: GridView.count(
 		          crossAxisCount: 2,

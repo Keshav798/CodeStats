@@ -24,16 +24,16 @@ class _UserDataState extends State<UserData> {
               ),PlatformCard(
                 "Codeforces",
                 CodeforcesScreen(user["codeforces"]),
-                "images/leetcode.png"
+                "images/codeforces.png"
               ),PlatformCard(
                 "Codechef",
                 CodechefScreen(user["codechef"]),
-                "images/leetcode.png"
+                "images/codechef.png"
               ),];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Constants.foregroundColor,
-        title: Text(user["user_name"]),),
+        title: Text(user["user_name"],style: TextStyle(color: Constants.foregroundColorText)),),
         backgroundColor: Constants.backgroundColor,
       body: GridView.count(
               crossAxisCount: 2,

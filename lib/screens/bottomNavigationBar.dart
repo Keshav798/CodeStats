@@ -10,7 +10,7 @@ class BottomBar extends StatefulWidget {
   @override
   State<BottomBar> createState() => _BottomBarState();
 }
-
+ 
 class _BottomBarState extends State<BottomBar> {
 	int currentIndex=0;
 	List<Widget> screens=[UserList(),ContestList()];
@@ -23,10 +23,10 @@ class _BottomBarState extends State<BottomBar> {
 		),
 		bottomNavigationBar: NavigationBar(
 			backgroundColor: Constants.foregroundColor,
-			indicatorColor: Constants.backgroundColor,
+			indicatorColor: Colors.orange[200],
 			destinations: [
-				NavigationDestination(icon: Icon(Icons.person), label: "Freinds"),
-				NavigationDestination(icon: Icon(Icons.list), label:"Contests"),
+				NavigationDestination(icon: Icon(Icons.person,color: Constants.foregroundColorText,), label: "Freinds"),
+				NavigationDestination(icon: Icon(Icons.list,color: Constants.foregroundColorText,), label:"Contests"),
 			],
 			selectedIndex: currentIndex,
 			onDestinationSelected: (value) => setState(() {

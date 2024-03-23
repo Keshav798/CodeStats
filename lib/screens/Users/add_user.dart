@@ -32,7 +32,7 @@ class _AddUserState extends State<AddUser> {
 		return Scaffold(
 			appBar: AppBar(
 				backgroundColor: Constants.foregroundColor,
-				title: Text("Add Friend"),),
+				title: Text("Add Friend",style: TextStyle(color: Constants.foregroundColorText)),),
 			backgroundColor: Constants.backgroundColor,
 			body: Padding(
 				padding : EdgeInsets.all(16),
@@ -46,7 +46,7 @@ class _AddUserState extends State<AddUser> {
 					fields("Codechef","Codechef username",codechef),
 					ElevatedButton(
 						onPressed: ()=>addData(),
-						child: Text("Add"),
+						child: Text("Add",style: TextStyle(color: Constants.foregroundColorText)),
 						style : ButtonStyle(
 							backgroundColor : MaterialStateProperty.all(Constants.foregroundColor)
 							)
@@ -74,7 +74,13 @@ class _AddUserState extends State<AddUser> {
 						decoration: InputDecoration(
 							border: OutlineInputBorder(),
 							labelText: s2,
+							labelStyle : TextStyle(
+							    color : Constants.backgroundColorText
+							  )
 							),
+							style : TextStyle(
+							    color : Constants.backgroundColorText
+							  )
 						),
 					)
 				),
