@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leetcodestats/Modal/Profiles/codeforces_modal.dart';
+import 'package:leetcodestats/Utils/Components/gradientText.dart';
 import 'package:leetcodestats/Utils/apiHelper.dart';
 import 'package:leetcodestats/Utils/constants.dart';
 import 'package:leetcodestats/Utils/widgetRotateHelper.dart';
@@ -179,7 +180,7 @@ Widget front(String maxRating,String rating,double height,double width){
 				),
 			decoration: BoxDecoration(
 			  gradient: LinearGradient(
-			colors: [Colors.orange, Colors.red],
+			colors: [Colors.red, Colors.orange],
 			begin: Alignment.topCenter,
 			end: Alignment.bottomCenter,
 			),
@@ -196,19 +197,23 @@ Widget back(String maxRank,double height,double width){
 					crossAxisAlignment: CrossAxisAlignment.center,
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: [
-					Text(maxRank.toUpperCase(),
+					GradientText(maxRank.toUpperCase(),
 						style: TextStyle(
 						  color : Constants.foregroundColorText,
 							fontWeight: FontWeight.bold,
 							fontSize : 30
-							),),
+							),
+						gradient: LinearGradient(colors: [
+							Colors.yellow[500]!,
+                			Colors.orange[500]!]),
+						),
 					],
 					),
 				),
 			decoration: BoxDecoration(
 				shape: BoxShape.circle,
 				gradient: LinearGradient(
-			colors: [Colors.red, Colors.orange],
+			colors: [Colors.orange, Colors.red],
 			begin: Alignment.topCenter,
 			end: Alignment.bottomCenter,
 			),
