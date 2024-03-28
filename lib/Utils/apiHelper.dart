@@ -2,22 +2,35 @@ import 'package:http/http.dart' as http;
 import 'package:leetcodestats/Modal/Contests/codechef_contest_modal.dart';
 import 'package:leetcodestats/Modal/Contests/codeforces_contest_modal.dart';
 import 'package:leetcodestats/Modal/Contests/leetcode_contest_modal.dart';
+import 'package:leetcodestats/Modal/Profiles/Leetcode/leetcode_modal_contest.dart';
+import 'package:leetcodestats/Modal/Profiles/Leetcode/leetcode_modal_solved.dart';
 import 'package:leetcodestats/Modal/Profiles/codechef_modal.dart';
 import 'package:leetcodestats/Modal/Profiles/codeforces_modal.dart';
 import 'dart:convert';
 
-import 'package:leetcodestats/Modal/Profiles/leetcode_stats_modal.dart';
 
 
 //https://codestats.onrender.com/api/codeforces/keahavgogia8 api endpoint for others https://codestats.onrender.com/api/{platform}/{username}
 class ApiHelper{
 
-	static Future<LeetcodeStats> getLeetcodeData(String username) async {
-		LeetcodeStats stats = LeetcodeStats();
+	static Future<LeetcodeContestModal> getLeetcodeContestData(String username) async{
+		LeetcodeContestModal stats = LeetcodeContestModal();
 		http.Response response;
 
 		response = await http
-		.get(Uri.parse("https://codestats.onrender.com/api/leetcode/" + username));
+		.get(Uri.parse("https://leetcode-api-1.onrender.com/"+username+"/contest"));
+
+		var data = jsonDecode(response.body.toString());
+		stats.fromJson(data);
+		return stats;
+	}
+
+	static Future<LeetcodeSolved> getLeetcodeSolvedData(String username) async{
+		LeetcodeSolved stats = LeetcodeSolved();
+		http.Response response;
+
+		response = await http
+		.get(Uri.parse("https://leetcode-api-1.onrender.com/"+username+"/solved"));
 
 		var data = jsonDecode(response.body.toString());
 		stats.fromJson(data);

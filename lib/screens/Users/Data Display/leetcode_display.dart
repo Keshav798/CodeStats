@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:leetcodestats/Modal/Profiles/leetcode_stats_modal.dart';
+import 'package:leetcodestats/Modal/Profiles/Leetcode/leetcode_modal_contest.dart';
+import 'package:leetcodestats/Modal/Profiles/Leetcode/leetcode_modal_solved.dart';
 import 'package:leetcodestats/Utils/apiHelper.dart';
 import 'package:leetcodestats/Utils/constants.dart';
-import 'package:pie_chart/pie_chart.dart';
+import 'package:leetcodestats/Utils/widgetRotateHelper.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:pie_chart/pie_chart.dart';
+
 // ignore: must_be_immutable
 class LeetcodeScreen extends StatefulWidget {
 	String username;
@@ -16,6 +19,8 @@ class LeetcodeScreen extends StatefulWidget {
 class _LeetcodeScreenState extends State<LeetcodeScreen> {
 	@override
 	Widget build(BuildContext context) {
+		double height=MediaQuery.of(context).size.height;
+	  	double width=MediaQuery.of(context).size.width;
 		if(widget.username.isEmpty){
 			return Scaffold(
 				backgroundColor: Constants.backgroundColor,
@@ -25,203 +30,208 @@ class _LeetcodeScreenState extends State<LeetcodeScreen> {
 		return Scaffold(
 			appBar: AppBar(
 				backgroundColor: Constants.foregroundColor,
-				title: Text("Leetcode"),),
+				title: Text("Leetcode",style: TextStyle(color: Constants.foregroundColorText),),),
 			backgroundColor: Constants.backgroundColor,
-			body: FutureBuilder<LeetcodeStats>(
-				future: ApiHelper.getLeetcodeData(widget.username),
-				builder: (context, snapshot){
-					if(snapshot.hasData==false){
-						return Center(child : Container(child : CircularProgressIndicator()));
-						}else if(snapshot.hasError){
-							return Center(child : Container(child : Text(snapshot.error.toString())));
-							}else{
-								LeetcodeStats data=snapshot.data!;
-								return SingleChildScrollView(
-									child: Container(
-										padding: EdgeInsets.all(16),
-										child: Card(
-											elevation: 10,
-											shape: RoundedRectangleBorder(
-												borderRadius: BorderRadius.circular(20),
-												),
-											child: Container(
-												decoration: BoxDecoration(
-													gradient: LinearGradient(
-														colors: [Colors.deepPurple, Colors.indigo],
-														begin: Alignment.topCenter,
-														end: Alignment.bottomCenter,
-														),
-													borderRadius: BorderRadius.circular(20),
-													),
-												child: Padding(
-													padding: const EdgeInsets.all(20),
-													child: Column(
-														children: [
-														Padding(
-															padding: EdgeInsets.all(16),
-															child: Column(
-																children: [
-																Padding(
-																	padding: EdgeInsets.all(16),
-																	child: Text("Solved Problems"),
-																	),
-
-																Center(child : Padding(
-																	padding: EdgeInsets.all(16),
-																	child : Center(
-																		child : PieChart(
-																			dataMap: {
-																				"Easy": double.parse(data.easyQuestionsSolved.toString()),
-																				"Medium": double.parse(data.mediumQuestionsSolved.toString()),
-																				"Hard": double.parse(data.hardQuestionsSolved.toString()),
-																				},
-																				animationDuration: Duration(milliseconds: 1100),
-																				chartRadius: 200,
-																				centerText: "Beats:" + data.acceptanceRate.toString(),
-																				gradientList: [[
-																				Color.fromRGBO(54,211,30,1),
-																				Color.fromRGBO(30, 250, 30, 1),
-																				],
-																				[
-																				Color.fromRGBO(223, 250, 42, 1),
-																				Color.fromRGBO(255,250,40,1),
-																				],
-																				[
-																				Color.fromRGBO(223,27,27,1),
-																				Color.fromRGBO(254, 0, 0, 5),
-																				]],
-																				colorList: [
-																				Colors.green,
-																				Colors.yellow,
-																				Colors.red,
-																				],
-																				chartType: ChartType.ring,
-																				legendOptions: LegendOptions(showLegends: false),
-																				chartValuesOptions:ChartValuesOptions(
-																					showChartValuesInPercentage: true,
-																					),
-																				)
-																		)
-
-																	),)
-
-
-
-																],
-																),
-
-															),
-														Row(
-															children: [
-															card_widget(Colors.red, "Hard", data.hardQuestionsSolved.toString() ,  data.totalHardQuestions.toString(),  data.hardAcceptanceRate.toString()),
-															card_widget(Colors.yellow, "Medium", data.mediumQuestionsSolved.toString() ,  data.totalMediumQuestions.toString(),  data.mediumAcceptanceRate.toString()),
-															],
-															),
-														Row(
-															children: [
-															card_widget(Colors.green, "Easy", data.easyQuestionsSolved.toString() ,  data.totalEasyQuestions.toString(),  data.easyAcceptanceRate.toString()),
-															card_widget(Colors.purple, "Total", data.totalProblemsSolved.toString() , "", data.acceptanceRate.toString())
-															],
-															),
-														Row(
-															children : [
-															Expanded(
-																child : Padding(
-																	padding: EdgeInsets.all(5),
-																	child: Card(
-																		elevation: 5,
-																		shape: RoundedRectangleBorder(
-																			borderRadius: BorderRadius.circular(15),
-																			),
-																		color: Colors.deepPurpleAccent,
-																		child: Padding(
-																			padding: EdgeInsets.all(10),
-																			child:Container(
-																				height: 80,
-																				width: 130,
-																				child: Center(
-																					child: Text(
-																						"Rank : " + data.ranking.toString(),
-																						style: TextStyle(
-																							fontWeight: FontWeight.bold,
-																							),
-																						),
-																					)
-																				)
-																			)
-																		)
-																	)
-																)
-															]
-															),
-														Padding(
-															padding : EdgeInsets.all(10),
-															child : Center(
-																child : GestureDetector(
-																	onTap: (){
-																		final Uri _url = Uri.parse("https://leetcode.com/"+widget.username);
-																		launchUrl(_url);
-																		},
-																		child: Text("Tap for Profile >"),
-																		)
-																)
-															)
-
-														],
-														),
-),
-),
-),
-),
-);
-}
-}
-),
-);
-}
-
-
-}
-
-Widget card_widget(Color color,String display,String solved,String total,String beats){
-	return Expanded(
-		child : Padding(
-			padding: EdgeInsets.all(5),
-			child: Card(
-				elevation: 5,
-				shape: RoundedRectangleBorder(
-					borderRadius: BorderRadius.circular(15),
-					),
-				color: Colors.deepPurpleAccent,
-				child: Padding(
-					padding: EdgeInsets.all(10),
-					child:Container(
-						height: 80,
-						child: Column(
-							crossAxisAlignment: CrossAxisAlignment.center,
+			body: SingleChildScrollView(
+					child: Column(
 							children: [
-							Row(
-								children: [
-								Container(
-									width: 10.0, // Set the width of the container
-									height: 10.0, // Set the height of the container
-									decoration: BoxDecoration(
-										shape: BoxShape.circle, // Set the shape to circle
-										color: color, // Set the background color
+								Row(
+									children: [
+									Expanded(
+										child: Padding(
+										padding: EdgeInsets.all(8),
+										child : Container(
+											child: FutureBuilder<LeetcodeSolved>(
+												future: ApiHelper.getLeetcodeSolvedData(widget.username),
+												builder: (context,snapshot) {
+													if(snapshot.hasData==false){
+														return Container(height: height*0.25, width: height*0.25,child : Center(child : Container(child : Center(child: CircularProgressIndicator(),))));
+													}else{
+														LeetcodeSolved data=snapshot.data!;
+														Map<String, double> dataMap = {
+													    "Easy: "+data.easySolved!.toString(): data.easySolved!.toDouble(),
+													    "Medium: "+data.mediumSolved!.toString(): data.mediumSolved!.toDouble(),
+													    "Hard: "+data.hardSolved!.toString(): data.hardSolved!.toDouble(),
+													  	};
+													  	List<Color> colorList=[Colors.green,Colors.yellow,Colors.red];
+
+													  	return Row(
+													  		mainAxisAlignment: MainAxisAlignment.center,
+													  		crossAxisAlignment: CrossAxisAlignment.center,
+														children: [
+														Expanded(
+															child: Padding(
+																padding: EdgeInsets.all(8),
+																child : PieChart(
+															      dataMap: dataMap,
+															      animationDuration: Duration(milliseconds: 800),
+															      chartLegendSpacing: 32,
+															      chartRadius: height*0.25,
+															      colorList: colorList,
+															      initialAngleInDegree: 0,
+															      chartType: ChartType.ring,
+															      ringStrokeWidth: 20,
+															      centerWidget: MovingCardWidget(
+															      	Container(
+														      			height: height*0.25,
+														      			child: Center(
+													      					child: Text(
+																	      	"Total Solved : "+data.solvedProblem.toString(),
+																	      	style: TextStyle(color: Constants.backgroundColorText),
+																	      	),
+														      				),
+														      			decoration: BoxDecoration(
+																		  gradient: LinearGradient(
+																		colors: [Colors.red, Colors.orange],
+																		begin: Alignment.topCenter,
+																		end: Alignment.bottomCenter,
+																		),
+																			shape: BoxShape.circle,
+																			),
+															      		),
+															      	
+															      	Container(
+														      			height: height*0.25,
+														      			child: Center(
+													      					child: Text(
+													      					"Easy: "+data.easySolved!.toString()+"\n"
+													      					"Medium: "+data.mediumSolved!.toString()+"\n"
+													      					"Hard: "+data.hardSolved!.toString()+"\n",
+																	      	style: TextStyle(color: Constants.backgroundColorText),
+																	      	),
+														      				),
+														      			decoration: BoxDecoration(
+																		  gradient: LinearGradient(
+																		colors: [Colors.red, Colors.orange],
+																		begin: Alignment.topCenter,
+																		end: Alignment.bottomCenter,
+																		),
+																			shape: BoxShape.circle,
+																			),
+															      		),
+															      ),
+															      legendOptions: LegendOptions(
+															        showLegendsInRow: false,
+															        legendPosition: LegendPosition.right,
+															        showLegends: false,
+															        legendShape: BoxShape.circle,
+															        legendTextStyle: TextStyle(
+															          color: Constants.backgroundColorText
+															        ),
+															      ),
+															      chartValuesOptions: ChartValuesOptions(
+															        showChartValueBackground: false,
+															        showChartValues: false,
+															        showChartValuesInPercentage: false,
+															        showChartValuesOutside: false,
+															        decimalPlaces: 0,
+															      ),
+															      // gradientList: ---To add gradient colors---
+															      // emptyColorGradient: ---Empty Color gradient---
+															    )
+																)
+															),
+															],
+														);
+												
+													}
+													},
+											),
 										),
+										)
+										),
+										],
 									),
-								Text(" "+display)
-								],
-								),
-							(total.isEmpty) ? Text("Solved : "+solved) : Text("Solved : "+solved+"/"+total),
-							Text(" Beats : " + beats)
+					
+									Text("Rotate Circle ↕️",style: TextStyle(
+									    color: Constants.backgroundColorText,
+									    fontSize : 12
+									    ),),
+								
+
+								Container(
+										  height : height*0.07,
+										  width : width*0.4, //200
+										  decoration : BoxDecoration(
+										      color : Constants.foregroundColor,
+										      borderRadius : BorderRadius.all(Radius.circular(30))
+										    ),
+										    child : Padding(
+											padding : EdgeInsets.all(10),
+											child : Center(
+												child : GestureDetector(
+													onTap: (){
+														final Uri _url = Uri.parse("https://leetcode.com/"+widget.username);
+														launchUrl(_url);
+														},
+														child: Text("Tap for Profile >",style: TextStyle(color: Constants.foregroundColorText),),
+														)
+												)
+											),
+										  ),
+										  
+										  SizedBox(height :20),
+										Container(
+										  decoration : BoxDecoration(
+										      color : Constants.foregroundColor,
+										      borderRadius : BorderRadius.only(
+										        topRight : Radius.circular(30),
+										        topLeft : Radius.circular(30),
+										        )
+										    ),
+										  padding: EdgeInsets.all(0),
+										    child : Column(
+												children: [
+												GestureDetector(
+														child: ListTile(
+															title: Text("Recent Contests",style: TextStyle(color: Constants.foregroundColorText),),
+															),
+														),
+												Container(
+													child : FutureBuilder<LeetcodeContestModal>(
+													future: ApiHelper.getLeetcodeContestData(widget.username),
+													builder: (context,snapshot) {
+														if(snapshot.hasData==false){
+															return Container(height: height*0.5, width: height*0.25,child : Center(child : Container(child : Center(child: CircularProgressIndicator(),))));
+														}else{
+															LeetcodeContestModal data=snapshot.data!;
+															data.contestParticipation!.reversed;
+															return ListView.builder(
+															physics : NeverScrollableScrollPhysics(),
+															shrinkWrap : true,
+															itemCount: data.contestParticipation!.length ,
+															reverse: true,
+															itemBuilder: (context,index){
+																ContestParticipation contest = data.contestParticipation![index];
+																return ListTile(
+																	title: Text(contest.contest!.title.toString(),style: TextStyle(color: Constants.foregroundColorText),),
+																	trailing: Column(
+																		children : [
+																		Text("Contest rank : " + contest.ranking.toString(),style: TextStyle(color: Constants.foregroundColorText),),
+																		Text("Solved : " + contest.problemsSolved.toString()+"/"+contest.totalProblems.toString(),style: TextStyle(color: Constants.foregroundColorText),),
+																		]
+																		),
+																	subtitle: Text("New Rating : " + contest.rating.toString(),style: TextStyle(color: Constants.foregroundColorText),),
+																	);
+															}
+														);
+														}
+														},
+													),
+													)
+
+												],
+												),
+										  ),
 							],
-							),
-						)
-					)
+						),
 				)
-			)
 		);
 }
+
+
+}
+
+
 
 

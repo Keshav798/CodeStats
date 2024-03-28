@@ -58,8 +58,8 @@ class _CodeforcesScreenState extends State<CodeforcesScreen> {
 														)
 													)
 												),
-											],
-										),
+												],
+											),
 										
 										
 										// SizedBox(height : 0.01),

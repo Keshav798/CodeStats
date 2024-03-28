@@ -3,7 +3,6 @@ import 'package:leetcodestats/Modal/Profiles/codechef_modal.dart';
 import 'package:leetcodestats/Utils/Components/ratingCard.dart';
 import 'package:leetcodestats/Utils/apiHelper.dart';
 import 'package:leetcodestats/Utils/constants.dart';
-import 'package:leetcodestats/Utils/widgetRotateHelper.dart';
 import 'package:card_slider/card_slider.dart';
 import 'package:url_launcher/url_launcher.dart';
 // ignore: must_be_immutable
