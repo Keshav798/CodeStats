@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leetcodestats/Utils/Components/platformCard.dart';
 import 'package:leetcodestats/Utils/constants.dart';
-import 'package:leetcodestats/screens/Contest/codechef_contest_display.dart';
-import 'package:leetcodestats/screens/Contest/codeforces_contest_display.dart';
-import 'package:leetcodestats/screens/Contest/leetcode_contest_display.dart';
+import 'package:leetcodestats/screens/Contest/contest_display.dart';
 
 class ContestList extends StatefulWidget {
 	const ContestList({super.key});
@@ -17,18 +15,24 @@ class _ContestListState extends State<ContestList> {
 	List<PlatformCard> platforms=[
 					PlatformCard(
 		            "Leetcode",
-		            LeetcodeContestScreen(),
+		            ContestScreen(platform: "leetcode",),
 		            "images/leetcode.png"),
 
 					PlatformCard(
 		            "Codeforces",
-		            CodeforcesContestDisplay(),
+		            ContestScreen(platform: "codeforces",),
 		            "images/codeforces.png"),
 					
 					PlatformCard(
 		            "Codechef",
-		            CodechefContestScreen(),
-		            "images/codechef.png")
+		            ContestScreen(platform: "codechef",),
+		            "images/codechef.png"),
+
+		            PlatformCard(
+		            	"Atcoder",
+		            	ContestScreen(platform: "atcoder",),
+		            	"images/atcoder.png"
+		            	)
 		            ];
 	@override
 	Widget build(BuildContext context) {

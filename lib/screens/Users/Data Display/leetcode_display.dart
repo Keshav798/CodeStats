@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leetcodestats/Modal/Profiles/Leetcode/leetcode_modal_contest.dart';
 import 'package:leetcodestats/Modal/Profiles/Leetcode/leetcode_modal_solved.dart';
+import 'package:leetcodestats/Utils/Components/gradientText.dart';
 import 'package:leetcodestats/Utils/apiHelper.dart';
 import 'package:leetcodestats/Utils/constants.dart';
 import 'package:leetcodestats/Utils/widgetRotateHelper.dart';
@@ -53,7 +54,7 @@ class _LeetcodeScreenState extends State<LeetcodeScreen> {
 													    "Medium: "+data.mediumSolved!.toString(): data.mediumSolved!.toDouble(),
 													    "Hard: "+data.hardSolved!.toString(): data.hardSolved!.toDouble(),
 													  	};
-													  	List<Color> colorList=[Colors.green,Colors.yellow,Colors.red];
+													  	List<Color> colorList=[Colors.green[500]!,Colors.yellow[500]!,Colors.red[500]!];
 
 													  	return Row(
 													  		mainAxisAlignment: MainAxisAlignment.center,
@@ -75,14 +76,18 @@ class _LeetcodeScreenState extends State<LeetcodeScreen> {
 															      	Container(
 														      			height: height*0.25,
 														      			child: Center(
-													      					child: Text(
+													      					child: GradientText(
 																	      	"Total Solved : "+data.solvedProblem.toString(),
-																	      	style: TextStyle(color: Constants.backgroundColorText),
+																	      	gradient: LinearGradient(
+																			begin: Alignment.topLeft,
+													      					end: Alignment.bottomRight,
+																			colors: [Colors.blue,Colors.white]),
+																	      	style: TextStyle(fontSize: 15,color: Constants.backgroundColorText),
 																	      	),
 														      				),
 														      			decoration: BoxDecoration(
 																		  gradient: LinearGradient(
-																		colors: [Colors.red, Colors.orange],
+																		colors: [Constants.foregroundColor!, Colors.black],
 																		begin: Alignment.topCenter,
 																		end: Alignment.bottomCenter,
 																		),
@@ -93,16 +98,20 @@ class _LeetcodeScreenState extends State<LeetcodeScreen> {
 															      	Container(
 														      			height: height*0.25,
 														      			child: Center(
-													      					child: Text(
+													      					child: GradientText(
 													      					"Easy: "+data.easySolved!.toString()+"\n"
 													      					"Medium: "+data.mediumSolved!.toString()+"\n"
 													      					"Hard: "+data.hardSolved!.toString()+"\n",
-																	      	style: TextStyle(color: Constants.backgroundColorText),
+													      					gradient: LinearGradient(
+																			begin: Alignment.topLeft,
+													      					end: Alignment.bottomRight,
+																			colors: [Colors.red,Colors.yellow,Colors.green]),
+																	      	style: TextStyle(fontSize: 15, color: Constants.backgroundColorText),
 																	      	),
 														      				),
 														      			decoration: BoxDecoration(
 																		  gradient: LinearGradient(
-																		colors: [Colors.red, Colors.orange],
+																		colors: [Colors.black, Constants.foregroundColor!],
 																		begin: Alignment.topCenter,
 																		end: Alignment.bottomCenter,
 																		),
@@ -172,6 +181,7 @@ class _LeetcodeScreenState extends State<LeetcodeScreen> {
 										  
 										  SizedBox(height :20),
 										Container(
+											
 										  decoration : BoxDecoration(
 										      color : Constants.foregroundColor,
 										      borderRadius : BorderRadius.only(

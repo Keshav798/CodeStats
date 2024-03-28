@@ -163,13 +163,17 @@ Widget front(String maxRating,String rating,double height,double width){
 					crossAxisAlignment: CrossAxisAlignment.center,
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: [
-					Text("Max Rating : " + maxRating,
+					GradientText("Max Rating : " + maxRating,
+						gradient: LinearGradient(colors: [
+							Colors.blue,Colors.white]),
 						style: TextStyle(
 						  color : Constants.foregroundColorText,
 							fontWeight: FontWeight.bold,
 							fontSize : 20
 							),),
-					Text("Current Rating : " + rating,
+					GradientText("Current Rating : " + rating,
+						gradient: LinearGradient(colors: [
+							Colors.blue,Colors.white]),
 						style: TextStyle(
 						  color : Constants.foregroundColorText,
 							fontWeight: FontWeight.bold,
@@ -180,7 +184,7 @@ Widget front(String maxRating,String rating,double height,double width){
 				),
 			decoration: BoxDecoration(
 			  gradient: LinearGradient(
-			colors: [Colors.red, Colors.orange],
+			colors: [Colors.black, Constants.foregroundColor!],
 			begin: Alignment.topCenter,
 			end: Alignment.bottomCenter,
 			),
@@ -204,8 +208,7 @@ Widget back(String maxRank,double height,double width){
 							fontSize : 30
 							),
 						gradient: LinearGradient(colors: [
-							Colors.yellow[500]!,
-                			Colors.orange[500]!]),
+							Colors.blue,Colors.white]),
 						),
 					],
 					),
@@ -213,7 +216,7 @@ Widget back(String maxRank,double height,double width){
 			decoration: BoxDecoration(
 				shape: BoxShape.circle,
 				gradient: LinearGradient(
-			colors: [Colors.orange, Colors.red],
+			colors: [Constants.foregroundColor!,Colors.black],
 			begin: Alignment.topCenter,
 			end: Alignment.bottomCenter,
 			),

@@ -53,8 +53,7 @@ class _AnimatedRatingCardState extends State<AnimatedRatingCard> {
 	      	end: Alignment.bottomCenter,
 	      	colors: [
 	      		Constants.foregroundColor!,
-	      		Colors.amber,
-	      		Colors.red,
+	      		Colors.black,
 
 	      	]),
 		      color : Constants.foregroundColor,
@@ -70,7 +69,7 @@ class _AnimatedRatingCardState extends State<AnimatedRatingCard> {
 						gradient: LinearGradient(
 							begin: Alignment.topLeft,
 	      			end: Alignment.bottomRight,
-							colors: [Colors.black,Colors.white]),
+							colors: [Colors.blue,Colors.white]),
 						style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Constants.foregroundColorText),
 						),
 					SizedBox(height: 10),
@@ -79,7 +78,7 @@ class _AnimatedRatingCardState extends State<AnimatedRatingCard> {
 						gradient: LinearGradient(
 							begin: Alignment.topLeft,
 	      			end: Alignment.bottomRight,
-							colors: [Colors.white,Colors.black]),
+							colors: [Colors.blue,Colors.white]),
 						style: TextStyle(fontSize: 24, color: Constants.foregroundColorText),
 						),
 					],

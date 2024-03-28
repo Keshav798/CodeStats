@@ -23,7 +23,7 @@ class _BottomBarState extends State<BottomBar> {
 		),
 		bottomNavigationBar: NavigationBar(
 			backgroundColor: Constants.foregroundColor,
-			indicatorColor: Colors.orange[200],
+			indicatorColor: Colors.blue,
 			destinations: [
 				NavigationDestination(icon: Icon(Icons.person,color: Constants.foregroundColorText,), label: "Freinds"),
 				NavigationDestination(icon: Icon(Icons.list,color: Constants.foregroundColorText,), label:"Contests"),

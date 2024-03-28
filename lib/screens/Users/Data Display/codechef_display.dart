@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leetcodestats/Modal/Profiles/codechef_modal.dart';
+import 'package:leetcodestats/Utils/Components/gradientText.dart';
 import 'package:leetcodestats/Utils/Components/ratingCard.dart';
 import 'package:leetcodestats/Utils/apiHelper.dart';
 import 'package:leetcodestats/Utils/constants.dart';
@@ -66,8 +67,7 @@ class _CodechefScreenState extends State<CodechefScreen> {
 										      	end: Alignment.bottomCenter,
 										      	colors: [
 										      		Constants.foregroundColor!,
-										      		Colors.yellow,
-										      		Colors.red,
+										      		Colors.black
 
 										      	]),
 										      borderRadius : BorderRadius.only(
@@ -91,8 +91,12 @@ class _CodechefScreenState extends State<CodechefScreen> {
 															),
 														),
 													SizedBox(height: 16),
-													Text(
+													GradientText(
 														data.name??"",
+														gradient: LinearGradient(
+														begin: Alignment.topLeft,
+								      					end: Alignment.bottomRight,
+														colors: [Colors.blue,Colors.white]),
 														style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Constants.foregroundColorText),
 														),
 													SizedBox(height: 8),

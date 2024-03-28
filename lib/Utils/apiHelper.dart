@@ -1,7 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'package:leetcodestats/Modal/Contests/codechef_contest_modal.dart';
-import 'package:leetcodestats/Modal/Contests/codeforces_contest_modal.dart';
-import 'package:leetcodestats/Modal/Contests/leetcode_contest_modal.dart';
+import 'package:leetcodestats/Modal/Contests/contest_modal.dart';
 import 'package:leetcodestats/Modal/Profiles/Leetcode/leetcode_modal_contest.dart';
 import 'package:leetcodestats/Modal/Profiles/Leetcode/leetcode_modal_solved.dart';
 import 'package:leetcodestats/Modal/Profiles/codechef_modal.dart';
@@ -61,36 +59,12 @@ class ApiHelper{
 		return stats;
 	}
 
-	static Future<LeetcodeContest> getLeetcodeContests() async{
-		LeetcodeContest leetcodeContest=LeetcodeContest();
+	static Future<ContestModal> getContests(String platform) async{
+		ContestModal contest=ContestModal();
 		http.Response response;
 
 		response=await http
-		.get(Uri.parse("https://contest-hive.vercel.app/api/leetcode"));
-
-		var data=jsonDecode(response.body.toString());
-		leetcodeContest.fromJson(data);
-		return leetcodeContest;
-	}
-
-	static Future<CodeforcesContest> getCodeforcesContests() async{
-		CodeforcesContest contest=CodeforcesContest();
-		http.Response response;
-
-		response=await http
-		.get(Uri.parse("https://contest-hive.vercel.app/api/codeforces"));
-
-		var data=jsonDecode(response.body.toString());
-		contest.fromJson(data);
-		return contest;
-	}
-
-	static Future<CodeChefContest> getCodechefContests() async{
-		CodeChefContest contest=CodeChefContest();
-		http.Response response;
-
-		response=await http
-		.get(Uri.parse("https://contest-hive.vercel.app/api/codechef"));
+		.get(Uri.parse("https://contest-hive.vercel.app/api/"+platform));
 
 		var data=jsonDecode(response.body.toString());
 		contest.fromJson(data);
