@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:leetcodestats/Utils/Google/google_sign_in.dart';
 import 'package:leetcodestats/Utils/constants.dart';
 import 'package:leetcodestats/Utils/sqlHelper.dart';
 import 'package:leetcodestats/screens/Users/add_user.dart';
 import 'package:leetcodestats/screens/Users/edit_user.dart';
 import 'package:leetcodestats/screens/Users/user_data.dart';
+
+import '../direct_page.dart';
 class UserList extends StatefulWidget {
 	const UserList({super.key});
 	_UserListState createState() => _UserListState();
@@ -26,7 +29,21 @@ class _UserListState extends State<UserList> {
 				title: Text(
 					"Friends",
 					style: TextStyle(color: Constants.foregroundColorText),
-					),),
+					),
+				actions: [
+					Padding(
+					  padding: const EdgeInsets.all(8.0),
+					  child: GestureDetector(
+					  	onTap: () async {
+					  		await GoogleSignInHelper.signOut();
+					  		Navigator.pushReplacement(
+					  				context, MaterialPageRoute(builder: (context) => DirectPage()));
+					  	},
+					  	child: Text("Logout",style: TextStyle(color: Constants.foregroundColorText),),
+					  ),
+					)
+				],
+			),
 			backgroundColor: Constants.backgroundColor,
 			body: Container(
 				child: Container(

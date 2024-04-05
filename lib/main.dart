@@ -1,9 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:leetcodestats/Utils/notification_helper.dart';
+import 'package:leetcodestats/screens/sign_in.dart';
 import 'package:leetcodestats/screens/splash_screen.dart';
 
 void main() async{
 	WidgetsFlutterBinding.ensureInitialized();
+	await Firebase.initializeApp();
 	await LocalNotifications.init();
 	//tz.initializeTimeZones();
 	runApp(MyApp());             
@@ -26,7 +29,7 @@ class _MyAppState extends State<MyApp> {
 				primarySwatch: Colors.blue,
 				),
 			// A widget which will be started on application startup
-			home: SplashScreen(),
+			home: SplashScreen()
 			);
 	}
 }

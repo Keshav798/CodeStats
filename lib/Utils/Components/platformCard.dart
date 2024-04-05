@@ -39,7 +39,7 @@ class PlatformCard extends StatelessWidget {
                   alignment : Alignment.bottomRight,
                   child : Image.asset(
                       imagePath,
-                      height : MediaQuery.of(context).size.height*0.13,
+                      height : MediaQuery.of(context).size.height*0.09,
                       width : MediaQuery.of(context).size.width*0.25
                   )
                 )

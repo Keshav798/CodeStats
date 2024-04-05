@@ -1,4 +1,4 @@
-package com.example.leetcodestats
+package com.example.codestats
 
 import io.flutter.embedding.android.FlutterActivity
 

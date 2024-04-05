@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:leetcodestats/screens/bottomNavigationBar.dart';
+import 'package:leetcodestats/screens/direct_page.dart';
+
+import '../Utils/constants.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -32,7 +35,7 @@ with TickerProviderStateMixin {
     Timer(
       Duration(seconds: 2),
       () => Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => BottomBar())));
+        context, MaterialPageRoute(builder: (context) => DirectPage() )) );
   }
 
   Widget _image_view() {
@@ -48,31 +51,50 @@ with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-          AnimatedBuilder(
-            animation: controller, //controller is defined above
-            child: _image_view(),
-            builder: (context, Widget? child) {
-              return Transform.rotate(
-                //how to animate
-                angle: controller.value * 2 * 3.14,
-                child: child,
-                );
-              }),
-          SizedBox(
-            height: 20,
-            ),
-          Text(
-            "Leetcode Stats",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Constants.foregroundColor!,Colors.black]
             )
-          ],
-          ),
         ),
-      );
+        child: Center(
+            child: Text(
+              "CodeStats",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+            ),
+        )
+      ),
+    );
   }
 }
+
+// Scaffold(
+// body: SafeArea(
+// child: Column(
+// mainAxisAlignment: MainAxisAlignment.center,
+// crossAxisAlignment: CrossAxisAlignment.center,
+// children: [
+// AnimatedBuilder(
+// animation: controller, //controller is defined above
+// child: _image_view(),
+// builder: (context, Widget? child) {
+// return Transform.rotate(
+// //how to animate
+// angle: controller.value * 2 * 3.14,
+// child: child,
+// );
+// }),
+// SizedBox(
+// height: 20,
+// ),
+// Text(
+// "Leetcode Stats",
+// style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+// )
+// ],
+// ),
+// ),
+// );
+
