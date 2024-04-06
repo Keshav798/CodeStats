@@ -1,11 +1,15 @@
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:leetcodestats/Utils/Google/google_database.dart';
 import 'package:leetcodestats/Utils/Google/google_sign_in.dart';
 import 'package:leetcodestats/Utils/constants.dart';
 import 'package:leetcodestats/Utils/sqlHelper.dart';
 import 'package:leetcodestats/screens/Users/add_user.dart';
 import 'package:leetcodestats/screens/Users/edit_user.dart';
 import 'package:leetcodestats/screens/Users/user_data.dart';
-
+import 'package:restart_app/restart_app.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../direct_page.dart';
 class UserList extends StatefulWidget {
 	const UserList({super.key});
@@ -14,12 +18,26 @@ class UserList extends StatefulWidget {
 
 class _UserListState extends State<UserList> {
 
-	Future<List<Map<String,dynamic>>> getData() async{
+	Stream? friendStream;
+	getStream() async {
+		friendStream=await GoogleDatabase.getFriends();
+		setState(() {
 
-		final data=await SqlHelper.get_users();
-		//print(data);
-		return data;
+		});
 	}
+
+	@override
+  void initState() {
+    // TODO: implement initState
+		getStream();
+    super.initState();
+  }
+	// Future<List<Map<String,dynamic>>> getData() async{
+	//
+	// 	final data=await SqlHelper.get_users();
+	// 	//print(data);
+	// 	return data;
+	// }
 
 	@override
 	Widget build(BuildContext context) {
@@ -38,7 +56,9 @@ class _UserListState extends State<UserList> {
 					  		await GoogleSignInHelper.signOut();
 					  		Navigator.pushReplacement(
 					  				context, MaterialPageRoute(builder: (context) => DirectPage()));
+								Fluttertoast.showToast(msg: "Please restart application after signing out");
 					  	},
+
 					  	child: Text("Logout",style: TextStyle(color: Constants.foregroundColorText),),
 					  ),
 					)
@@ -47,18 +67,18 @@ class _UserListState extends State<UserList> {
 			backgroundColor: Constants.backgroundColor,
 			body: Container(
 				child: Container(
-					child: FutureBuilder<List<Map<String,dynamic>>>(
-						future: getData(),
-						builder: (context, snapshot) {
+					child: StreamBuilder(
+						stream: friendStream,
+						builder: (context, AsyncSnapshot snapshot) {
 							if(snapshot.hasData==false){
 								return Center(child : Container(child : CircularProgressIndicator()));
 								}else{
 									//print(snapshot.data!.length);
 									return ListView.builder(
-										itemCount: snapshot.data!.length,
+										itemCount: snapshot.data.docs.length,
 										itemBuilder: (context,index){
-											Map<String,dynamic> user=snapshot.data![index];
-
+											DocumentSnapshot user=snapshot.data.docs[index];
+											//DocumentSnapshot is just like Map<K,V> in usage
 											return Card(
 												elevation: 5.0, // Set the elevation as needed
 												shape: RoundedRectangleBorder(
@@ -66,7 +86,7 @@ class _UserListState extends State<UserList> {
 													),
 												color: Constants.foregroundColor,
 												child: ListTile(
-													title : Text(user["user_name"],style: TextStyle(color: Constants.foregroundColorText)),
+													title : Text(user["name"],style: TextStyle(color: Constants.foregroundColorText)),
 													onTap: (){
 														Navigator.push(context, MaterialPageRoute(builder: (context) => UserData(user)));
 														},
@@ -97,7 +117,8 @@ class _UserListState extends State<UserList> {
 																	if(result==null || !result){
 																		return;
 																	}
-																	await SqlHelper.delete_user(user["user_id"]);
+																	// await SqlHelper.delete_user(user["user_id"]);
+																	await GoogleDatabase.deleteFriend(user["friendId"]);
 																	setState(() {
 
 																		});
@@ -108,7 +129,7 @@ class _UserListState extends State<UserList> {
 															GestureDetector(
 																onTap: (){
 																	Navigator.push(
-																		context, MaterialPageRoute(builder: (context) => UpdateUser(user["user_id"]) )).then((value){
+																		context, MaterialPageRoute(builder: (context) => UpdateUser(user) )).then((value){
 																			setState(() {
 
 																				});

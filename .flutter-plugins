@@ -1,4 +1,6 @@
 # This is a generated file; do not edit or check into version control.
+cloud_firestore=C:\\Users\\Bhavya\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\cloud_firestore-4.16.0\\
+cloud_firestore_web=C:\\Users\\Bhavya\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\cloud_firestore_web-3.11.0\\
 firebase_auth=C:\\Users\\Bhavya\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_auth-4.19.0\\
 firebase_auth_web=C:\\Users\\Bhavya\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_auth_web-5.11.0\\
 firebase_core=C:\\Users\\Bhavya\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_core-2.28.0\\
@@ -12,6 +14,7 @@ google_sign_in_ios=C:\\Users\\Bhavya\\AppData\\Local\\Pub\\Cache\\hosted\\pub.de
 google_sign_in_web=C:\\Users\\Bhavya\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\google_sign_in_web-0.12.4\\
 path_provider_linux=C:\\Users\\Bhavya\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_linux-2.2.1\\
 path_provider_windows=C:\\Users\\Bhavya\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_windows-2.2.1\\
+restart_app=C:\\Users\\Bhavya\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\restart_app-1.2.1\\
 shared_preferences=C:\\Users\\Bhavya\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\shared_preferences-2.2.2\\
 shared_preferences_android=C:\\Users\\Bhavya\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\shared_preferences_android-2.2.1\\
 shared_preferences_foundation=C:\\Users\\Bhavya\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\shared_preferences_foundation-2.3.4\\

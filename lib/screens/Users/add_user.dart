@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leetcodestats/Utils/Google/google_database.dart';
 import 'package:leetcodestats/Utils/constants.dart';
 import 'package:leetcodestats/Utils/sqlHelper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -60,11 +61,6 @@ class _AddUserState extends State<AddUser> {
 	Widget fields(String s1,String s2,TextEditingController cont){
 		return Column(
 			children: [
-			// Align(
-			// 	alignment: Alignment.centerLeft,
-			// 	child : 	Text(s1)
-			// 	),
-
 			Align(
 				alignment: Alignment.centerLeft,
 				child : 	Container(
@@ -95,9 +91,19 @@ class _AddUserState extends State<AddUser> {
 			print("empty name");
 			return;
 		}
-		await SqlHelper.create_user(name.text, leetcode.text, codeforces.text, codechef.text);
-		Fluttertoast.showToast(msg: "User Added");
-		print("added");
+		// await SqlHelper.create_user(name.text, leetcode.text, codeforces.text, codechef.text);
+		// Fluttertoast.showToast(msg: "User Added");
+		// print("added");
+
+		String friendId=DateTime.now().millisecondsSinceEpoch.toString(); //will be used as unique id for friends
+		Map<String ,dynamic> data={
+			"name":name.text,
+			"friendId":friendId,
+			"leetcode":leetcode.text,
+			"codeforces":codeforces.text,
+			"codechef":codechef.text
+		};
+		await GoogleDatabase.addFriend(data, friendId);
 		Navigator.pop(context);
 	}
 }

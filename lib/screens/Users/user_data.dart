@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:leetcodestats/Utils/Components/platformCard.dart';
 import 'package:leetcodestats/Utils/constants.dart';
@@ -7,7 +8,7 @@ import 'package:leetcodestats/screens/Users/Data%20Display/leetcode_display.dart
 
 // ignore: must_be_immutable
 class UserData extends StatefulWidget {
-  Map<String,dynamic> user_data;
+  DocumentSnapshot user_data;
   UserData(this.user_data);
   _UserDataState createState() => _UserDataState();
 }
@@ -16,7 +17,7 @@ class _UserDataState extends State<UserData> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String,dynamic> user=widget.user_data;
+    DocumentSnapshot user=widget.user_data;
     List<PlatformCard> platforms=[PlatformCard(
                 "Leetcode",
                 LeetcodeScreen(user["leetcode"]),
@@ -33,7 +34,7 @@ class _UserDataState extends State<UserData> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Constants.foregroundColor,
-        title: Text(user["user_name"],style: TextStyle(color: Constants.foregroundColorText)),),
+        title: Text(user["name"],style: TextStyle(color: Constants.foregroundColorText)),),
         backgroundColor: Constants.backgroundColor,
       body: GridView.count(
               crossAxisCount: 2,

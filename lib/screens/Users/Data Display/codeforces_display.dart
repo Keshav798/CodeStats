@@ -26,7 +26,7 @@ class _CodeforcesScreenState extends State<CodeforcesScreen> {
 		if(widget.username.isEmpty){
 			return Scaffold(
 				backgroundColor: Constants.backgroundColor,
-				body: Center(child : Container(child : Text("Username not yet added"))),
+				body: Center(child : Container(child : Text("Username not yet added",style: TextStyle(color: Constants.foregroundColorText),))),
 				);
 		}
 		return Scaffold(
