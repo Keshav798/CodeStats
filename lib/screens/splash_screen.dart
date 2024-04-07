@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:leetcodestats/screens/bottomNavigationBar.dart';
 import 'package:leetcodestats/screens/direct_page.dart';
@@ -36,6 +36,7 @@ with TickerProviderStateMixin {
       Duration(seconds: 2),
       () => Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => DirectPage() )) );
+    Fluttertoast.showToast(msg: "Notification Permissions needs to be enabled");
   }
 
   Widget _image_view() {

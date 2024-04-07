@@ -25,7 +25,7 @@ class _LeetcodeScreenState extends State<LeetcodeScreen> {
 		if(widget.username.isEmpty){
 			return Scaffold(
 				backgroundColor: Constants.backgroundColor,
-				body: Center(child : Container(child : Text("Username not yet added"))),
+				body: Center(child : Container(child : Text("Username not yet added",style: TextStyle(color: Constants.foregroundColorText),))),
 				);
 		}
 		return Scaffold(

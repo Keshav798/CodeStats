@@ -156,7 +156,7 @@ class _CodechefScreenState extends State<CodechefScreen> {
 										CardSlider(
 									        cards: valuesWidget,
 									        bottomOffset: .0005,
-									        cardHeight: 0.4,
+									        cardHeight: 0.5,
 									        cardWidth: 0.6,
 									        itemDotOffset: 0.25,
 									        containerHeight: 300,
